@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Account</title>
+        <link rel = "stylesheet" href = "../style.css">
+
+        <style>
+            html {
+                font: bold;
+                color: greenyellow;
+                background-color: black;
+            }
+
+            body {
+                font-family: Arial, sans-serif;
+            }
+
+            h1 {
+                left: 50%;
+            }
+
+            .login-box {
+                margin: 0 auto;
+                border: whitesmoke solid 2px;
+                width: 50%;
+                padding: 8px;
+            }
+
+            .search-btn {
+                padding: 8px;
+                background-color: lightgray;
+                margin-bottom: 20px;
+                width: 55%;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            table {
+                width: 100%;
+                margin-top: 20px;
+                border-collapse: collapse;
+            }
+
+            table, th, td {
+                border: 1px solid whitesmoke;
+            }
+
+            th, td {
+                padding: 8px;
+                text-align: center;
+            }
+
+            td img {
+                width: 100px;
+                height: 100px;
+            }
+            .submit-btn {
+                position: relative;
+                left: 40%;
+                background-color: greenyellow;
+                color: black;
+                padding: 10px 20px;
+                border: none;
+                cursor: pointer;
+            }
+
+            .submit-btn:hover {
+                background-color: yellowgreen;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>Welcome to the Anime Database</h1> <br><br>
+
+        <a href="/search" type="submit" id="animeSearch" value="Search For Anime Here" class="submit-btn">Click Here to Search For Anime</a>
+        <h2>All Anime that you have saved will appear below</h2>
+
+        <h3>Current Series Added: <br></h3>
+        <table>
+            <thead>
+                <tr>
+                    <th style= "width:33%">Image1</th>
+                    <th style= "width:33%">Image2</th>
+                    <th style= "width:33%">Image3</th>
+                </tr>
+            </thead>
+            <tbody id="anime_list">
+            </tbody>
+        </table>
+        
+        <script>
+            // Function to populate anime list
+            function populateAnimeList(animeData) {
+                const animeList = document.getElementById('animeList');
+
+                // Group the anime into sets of 3
+                let row;
+                animeData.forEach((anime, index) => {
+                    if (index % 3 === 0) {
+                        row = document.createElement('tr');
+                        animeList.appendChild(row);
+                    }
+
+                    const imageCell = document.createElement('td');
+                    const img = document.createElement('img');
+                    img.src = anime.image_url;
+                    img.alt = anime.title;
+                    imageCell.appendChild(img);
+                    row.appendChild(imageCell);
+                });
+            }
+            populateAnimeList(curren)
+        </script>
+    </body>
+</html>

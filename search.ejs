@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Account</title>
+        <link rel = "stylesheet" href = "../style.css">
+
+        <style>
+            html {
+                font: bold;
+                color: greenyellow;
+                background-color: black;
+            }
+
+            body {
+                font-family: Arial, sans-serif;
+            }
+
+            h1 {
+                left: 50%;
+            }
+
+            .login-box {
+                margin: 0 auto;
+                border: whitesmoke solid 2px;
+                width: 50%;
+                padding: 8px;
+            }
+
+            .search-btn {
+                padding: 8px;
+                background-color: lightgray;
+                margin-bottom: 20px;
+                width: 55%;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            table {
+                width: 100%;
+                margin-top: 20px;
+                border-collapse: collapse;
+            }
+
+            table, th, td {
+                border: 1px solid whitesmoke;
+            }
+
+            th, td {
+                padding: 8px;
+                text-align: center;
+            }
+
+            td img {
+                width: 100px;
+                height: 100px;
+            }
+            .submit-btn {
+                position: relative;
+                left: 40%;
+                background-color: greenyellow;
+                color: black;
+                padding: 10px 20px;
+                border: none;
+                cursor: pointer;
+            }
+
+            .submit-btn:hover {
+                background-color: yellowgreen;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>Welcome to the Anime Database</h1> <br><br>
+
+        <input type="text" id="animeSearch" placeholder="Search Anime To Be Added To List..." class="search-btn">
+        <h2>Search For Your Anime</h2>
+
+        <h3>Series Listed: <br></h3>
+        <form action="/search" method="POST" id="animeForm">
+
+            <table>
+                <thead>
+                    <tr>
+                        <th style= "width:40%">Image</th>
+                        <th style= "width:35%">Title</th>
+                        <th style= "width:25%">Click to Add</th>
+                    </tr>
+                </thead>
+                <tbody id="animeList">
+                </tbody>
+            </table>
+
+        <a href = "/account" style = "margin-top: 5%;"type="submit" placeholder="Add to My List" class="search-btn"> Submit</a>
+
+        </form>
+
+        <script>
+            
+            document.getElementById('animeSearch').addEventListener('input', async function(event) {
+                const searchQuery = event.target.value.trim();
+
+                if (searchQuery.length > 0) {
+                    const animeData = await fetchAnime(searchQuery);
+                    updateAnimeList(animeData);
+                } else {
+                    document.getElementById('animeList').innerHTML = '';  // Clear list when search is empty
+                }
+            });
+
+            // Function to fetch anime data from Jikan API
+            async function fetchAnime(query) {
+                try {
+                    const response = await fetch(`https://api.jikan.moe/v4/anime?q=${query}&limit=5`);
+                    const data = await response.json();
+                    return data.data;
+                } catch (error) {
+                    console.error("Error fetching anime data:", error);
+                }
+            }
+
+            // Function to update the table with anime list
+            function updateAnimeList(animeData) {
+                const animeList = document.getElementById('animeList');
+                animeList.innerHTML = '';  // Clear current list before adding new data
+
+                if (animeData && animeData.length > 0) {
+                    animeData.forEach(anime => {
+                        const row = document.createElement('tr');
+
+                        const imageCell = document.createElement('td');
+                        const img = document.createElement('img');
+                        img.src = anime.images.jpg.image_url;
+                        img.alt = anime.title;
+                        imageCell.appendChild(img);
+                        row.appendChild(imageCell);
+
+                        const titleCell = document.createElement('td');
+                        titleCell.textContent = anime.title;
+                        row.appendChild(titleCell);
+
+                        const boxCell = document.createElement("td");
+                        const box = document.createElement("input")
+                        box.type = "checkbox";
+                        box.name = anime.title;
+                        boxCell.appendChild(box);
+                        row.appendChild(boxCell);
+
+                        animeList.appendChild(row);
+                    });
+                } else {
+                    const row = document.createElement('tr');
+                    const cell = document.createElement('td');
+                    cell.colSpan = 3;
+                    cell.textContent = "No results found.";
+                    row.appendChild(cell);
+                    animeList.appendChild(row);
+                }
+            }
+        </script>
+    </body>
+</html>

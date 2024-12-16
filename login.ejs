@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Account Login</title>
+        <link rel = "stylesheet" href = "../style.css">
+
+        <style>
+            html {
+                font: bold;
+                color: greenyellow;
+                background-color: black;
+            }
+
+            body {
+                font-family: Arial, sans-serif;
+            }
+
+            h1 {
+                text-align: center;
+            }
+
+            .login-box {
+                position: relative;
+                left: 30%;
+                border: whitesmoke solid 2px;
+                width: 30%;
+                padding: 8px;
+            }
+
+
+            .submit-btn {
+                position: relative;
+                left: 40%;
+                background-color: greenyellow;
+                color: black;
+                padding: 10px 20px;
+                border: none;
+                cursor: pointer;
+            }
+
+            .submit-btn:hover {
+                background-color: yellowgreen;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>Welcome to the Anime Database</h1> <br><br>
+
+        <form class = "login-box" method="post" action="/login">
+            <h2>Login</h2><br>
+            <strong>Email Address:</strong><input type="text" name = "email" required> <br><br>
+            <strong>Password:</strong><input type="text" name = "password" required> <br><br>
+
+            <a href="/create" style="color: aqua;">Create Account</a>
+            <a href="/account" class="submit-btn" >Login</a><br><br>
+
+        </form>
+
+        <script>
+            
+        </script>
+    </body>
+
+    
+</html>
