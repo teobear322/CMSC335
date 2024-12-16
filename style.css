@@ -1,0 +1,23 @@
+html {
+    font: bold;
+    color: greenyellow;
+    background-color: black;
+}
+
+body {
+    width: 50%;
+}
+
+
+h1 {
+    position: relative;
+    left: 50%;
+}
+
+.login-box {
+    position: relative;
+    left: 50%;
+    border: whitesmoke solid 2px;
+    width: 50%;
+    padding: 8px;
+}
